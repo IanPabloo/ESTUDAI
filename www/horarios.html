@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudaí - Horários</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="app-screen" id="tela-horarios">
+            <div class="header-tela">
+                <a href="index.html" class="btn-voltar">&lt;</a>
+                <h1>MEUS HORÁRIOS</h1>
+            </div>
+            <button class="btn-acao-principal" id="btn-abrir-modal-aula">✚ Adicionar Novo Horário</button>
+            <div id="lista-horarios"></div>
+        </div>
+
+        <div class="modal-overlay" id="modal-aula" style="display: none;">
+            <div class="modal-container">
+                <h2 id="modal-titulo">Adicionar Nova Aula</h2>
+                <form id="form-aula">
+                    <input type="hidden" id="aula-id">
+                    <label for="aula-disciplina">Disciplina</label>
+                    <input type="text" id="aula-disciplina" required>
+                    <label for="aula-dia">Dia da Semana</label>
+                    <select id="aula-dia" required>
+                        <option value="Segunda-feira">Segunda-feira</option>
+                        <option value="Terça-feira">Terça-feira</option>
+                        <option value="Quarta-feira">Quarta-feira</option>
+                        <option value="Quinta-feira">Quinta-feira</option>
+                        <option value="Sexta-feira">Sexta-feira</option>
+                        <option value="Sábado">Sábado</option>
+                    </select>
+                    <label for="aula-inicio">Horário de Início</label>
+                    <input type="time" id="aula-inicio" required>
+                    <label for="aula-fim">Horário de Fim</label>
+                    <input type="time" id="aula-fim">
+                    <label for="aula-local">Local (opcional)</label>
+                    <input type="text" id="aula-local">
+                    <label for="aula-professor">Professor (opcional)</label>
+                    <input type="text" id="aula-professor">
+                    <div class="modal-botoes">
+                        <button type="submit" class="btn-salvar">Salvar</button>
+                        <button type="button" id="btn-cancelar-modal" class="btn-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="horarios.js"></script>
+</body>
+</html>

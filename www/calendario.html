@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudaí - Calendário</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="app-screen" id="tela-calendario">
+            <div class="header-tela">
+                <a href="index.html" class="btn-voltar">&lt;</a>
+                <h1>CALENDÁRIO</h1>
+            </div>
+
+            <div id="calendario-nav">
+                <button id="btn-mes-anterior">&lt;</button>
+                <h2 id="mes-ano-atual">Outubro 2025</h2>
+                <button id="btn-proximo-mes">&gt;</button>
+            </div>
+
+            <div id="calendario-dias-semana">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+
+            <div id="calendario-grid">
+                </div>
+
+            <div id="calendario-detalhes">
+                <h3>Detalhes do Dia</h3>
+                <div id="lista-detalhes">
+                    <p>Selecione um dia para ver os eventos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="calendario.js"></script>
+</body>
+</html>

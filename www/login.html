@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudaí - Bem-vindo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="app-screen" id="tela-login">
+            <h1 class="auth-titulo">Estudaí</h1>
+            <form class="auth-form" id="form-login">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-senha" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p class="auth-link">Não tem uma conta? <a href="#" id="link-para-cadastro">Cadastre-se</a></p>
+        </div>
+
+        <div class="app-screen" id="tela-cadastro" style="display: none;">
+            <h1 class="auth-titulo">Criar Conta</h1>
+            <form class="auth-form" id="form-cadastro">
+                <input type="email" id="cadastro-email" placeholder="Email" required>
+                <input type="password" id="cadastro-senha" placeholder="Senha (mínimo 6 caracteres)" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <p class="auth-link">Já tem uma conta? <a href="#" id="link-para-login">Faça login</a></p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="auth.js"></script>
+</body>
+</html>

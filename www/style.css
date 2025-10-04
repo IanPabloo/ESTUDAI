@@ -1,0 +1,551 @@
+/* Estilização Geral */
+:root {
+    --cor-verde: #76C75F;
+    --cor-vermelho: #FF4136;
+    --cor-azul: #0074D9;
+    --cor-fundo: #f0f2f5;
+    --cor-texto-principal: #333;
+    --cor-borda: #ddd;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e9e9e9;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* Simulação da Moldura do Celular */
+.smartphone-container {
+    width: 375px;
+    height: 812px;
+    background-color: var(--cor-fundo);
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: relative;
+}
+
+.app-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: var(--cor-texto-principal);
+    margin: 0;
+}
+
+/* Estilos do Painel */
+#painel-botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.painel-botao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F7FA; /* <-- CORRIGIDO AQUI para um azul muito claro */
+    border: 1px solid #EAEAEA;
+    border-radius: 15px;
+    height: 120px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.9em;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--cor-texto-principal);
+    text-decoration: none;
+}
+
+.painel-botao:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.painel-botao img {
+    width: 40px;
+    margin-bottom: 10px;
+}
+
+/* Estilos Comuns de Telas Internas */
+.header-tela {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+
+.header-tela h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    text-align: center;
+}
+
+.btn-voltar, .btn-voltar-painel {
+    font-size: 2em;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--cor-texto-principal);
+    text-decoration: none;
+    z-index: 2;
+}
+
+.btn-sair {
+    background-color: var(--cor-vermelho);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Estilos da Agenda */
+#agenda-filtros {
+    margin-bottom: 20px;
+}
+
+#agenda-filtros button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--cor-borda);
+    background-color: white;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+#agenda-filtros button.active {
+    background-color: var(--cor-verde);
+    color: white;
+    border-color: var(--cor-verde);
+}
+
+#lista-atividades {
+    width: 100%;
+}
+
+.atividade-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.prioridade-barra {
+    width: 5px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.atividade-info {
+    flex-grow: 1;
+}
+
+.atividade-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+
+.atividade-info p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #777;
+}
+
+.caixa-concluir {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--cor-borda);
+    border-radius: 50%;
+    margin-left: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+    color: white;
+    font-size: 1.2em;
+}
+
+.caixa-concluir:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilos do Formulário de Adicionar Atividade */
+.form-adicionar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.form-adicionar label {
+    font-weight: 600;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-self: flex-start;
+}
+
+.form-adicionar input, .form-adicionar select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda);
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+}
+
+.form-adicionar button {
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--cor-verde);
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.prioridade-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.slider {
+    width: 60%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--cor-verde);
+    cursor: pointer;
+}
+
+/* Estilos do Calendário */
+#calendario-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#calendario-nav button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#calendario-nav h2 {
+    font-size: 1.2em;
+}
+
+#calendario-dias-semana, #calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    text-align: center;
+}
+
+#calendario-dias-semana div {
+    font-weight: 600;
+    font-size: 0.9em;
+    padding-bottom: 10px;
+}
+
+#calendario-grid .dia-calendario {
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+#calendario-grid .dia-calendario:hover {
+    background-color: #e0e0e0;
+}
+
+#calendario-grid .dia-outro-mes {
+    color: #ccc;
+    cursor: default;
+}
+
+#calendario-grid .dia-outro-mes:hover {
+    background-color: transparent;
+}
+
+#calendario-grid .hoje {
+    background-color: var(--cor-azul);
+    color: white;
+}
+
+#calendario-grid .dia-selecionado {
+    border: 2px solid var(--cor-texto-principal);
+}
+
+
+.marcador-evento {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: var(--cor-vermelho);
+    border-radius: 50%;
+}
+
+#calendario-detalhes {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 100px;
+}
+
+#calendario-detalhes h3 {
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+#lista-detalhes .detalhe-item {
+    font-size: 0.9em;
+    padding: 5px;
+    border-left: 3px solid var(--cor-verde);
+    margin-bottom: 5px;
+}
+
+/* Estilos da Tela de Horários */
+.btn-acao-principal {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: var(--cor-azul);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#lista-horarios {
+    width: 100%;
+}
+
+.horario-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: white;
+    border-left: 5px solid var(--cor-azul);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.horario-info {
+    flex-grow: 1;
+}
+
+.horario-item h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: var(--cor-texto-principal);
+}
+
+.horario-item p {
+    margin: 3px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.horario-item .detalhe {
+    font-weight: 600;
+}
+
+.horario-botoes {
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.btn-editar, .btn-excluir {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+.btn-editar { background-color: #f0ad4e; }
+.btn-excluir { background-color: var(--cor-vermelho); }
+
+/* Estilos do Modal */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.modal-container h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+#form-aula {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-aula label {
+    font-weight: 600;
+    margin-top: 5px;
+}
+#form-aula input, #form-aula select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-borda);
+    box-sizing: border-box;
+}
+
+.modal-botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.btn-salvar, .btn-cancelar {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+.btn-salvar { background-color: var(--cor-verde); }
+.btn-cancelar { background-color: #6c757d; }
+
+.container-carregar-mais {
+    width: 100%;
+    padding: 10px 0;
+}
+
+.btn-carregar-mais {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    background-color: white;
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Estilos para Autenticação */
+.auth-titulo {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--cor-texto-principal);
+    margin-bottom: 40px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.auth-form input {
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda);
+    font-size: 1.1em;
+}
+
+.auth-form button {
+    padding: 18px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--cor-azul);
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.auth-link {
+    margin-top: 30px;
+    color: #666;
+}
+
+.auth-link a {
+    color: var(--cor-azul);
+    font-weight: bold;
+    text-decoration: none;
+}

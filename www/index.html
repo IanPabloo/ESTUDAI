@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudaí - Painel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="app-screen" id="tela-painel">
+            <div class="header-tela">
+                <h1>PAINÉL DO ESTUDANTE</h1>
+                <button id="btn-sair" class="btn-sair">Sair</button>
+            </div>
+            <div id="painel-botoes">
+                <div class="painel-botao" id="btn-adicionar-atividade">
+                    <img src="https://img.icons8.com/ios/50/clipboard.png" alt="Adicionar Atividade"/>
+                    <span>Adicionar Atividade</span>
+                </div>
+                <a href="calendario.html" class="painel-botao">
+                     <img src="https://img.icons8.com/ios/50/edit-calendar.png" alt="Calendário"/>
+                    <span>Calendário</span>
+                </a>
+                <a href="horarios.html" class="painel-botao">
+                     <img src="https://img.icons8.com/ios/50/clock--v1.png" alt="Horários"/>
+                    <span>Horários de Aula</span>
+                </a>
+                <a href="agenda.html" class="painel-botao">
+                     <img src="https://img.icons8.com/ios/50/open-book.png" alt="Agenda"/>
+                    <span>Agenda</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="app-screen" id="tela-adicionar-atividade" style="display: none;">
+            <div class="header-tela">
+                <a href="#" class="btn-voltar-painel">&lt;</a>
+                <h1>ADICIONAR ATIVIDADE</h1>
+            </div>
+            <form class="form-adicionar" id="form-add-atividade">
+                 <label for="add-titulo">Título da Atividade</label>
+                <input type="text" id="add-titulo" required>
+                <label for="add-descricao">Descrição</label>
+                <input type="text" id="add-descricao">
+                <label for="add-data">Data da entrega</label>
+                <input type="date" id="add-data" required>
+                <label for="add-horario">Horário (opcional)</label>
+                <input type="text" id="add-horario">
+                <label for="add-disciplina">Disciplina</label>
+                <input type="text" id="add-disciplina" required>
+                <label for="add-tipo">Tipo da atividade</label>
+                <select id="add-tipo">
+                    <option>Trabalho</option>
+                    <option>Prova</option>
+                    <option>Apresentação</option>
+                    <option>Reunião</option>
+                </select>
+                <label>Prioridade</label>
+                <div class="prioridade-slider-container">
+                    <span>Baixa</span>
+                    <input type="range" id="add-prioridade" min="1" max="3" value="2" class="slider">
+                    <span>Alta</span>
+                </div>
+                <button type="submit">ADICIONAR ATIVIDADE</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
