@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VesteBem - Sua Loja de Roupas Online</title>
+    
+    <!-- Script do Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes do Google (Inter) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Configuração customizada do Tailwind para usar a fonte 'Inter' e as NOVAS CORES
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'beige': '#f5f3ef', // Background do novo logo
+                        'charcoal': '#4a4a4a', // Cor do texto/ícone do novo logo
+                        'charcoal-light': '#6d6d6d', // Tom mais claro para subtextos
+                        'border-light': '#dcdbd9' // Borda sutil
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Estilo customizado para a barra de rolagem */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Esconde o spinner de inputs de número */
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+        /* Garante que o .prose (do modal Gemini) não estrague o layout */
+        .prose ul {
+            padding-left: 1.25rem;
+            list-style-type: disc;
+        }
+    </style>
+</head>
+<body class="bg-beige font-sans antialiased text-charcoal">
+
+    <!-- Barra de Promoção Topo --><div class="bg-charcoal text-center text-sm font-medium text-white p-2">
+        Seleção com até <span class="font-bold">50% OFF</span> + <span class="font-bold">15% OFF</span> extra acima de R$ 199 | COMPANHAR
+    </div>
+
+    <!-- Notificação "Toast" --><div id="toast-notification" class="fixed bottom-5 right-5 z-[70] hidden rounded-lg px-5 py-3 text-white shadow-lg transition-all duration-300">
+        <p>Item adicionado ao carrinho!</p>
+    </div>
+
+    <!-- Cabeçalho --><header class="sticky top-0 z-40 bg-white shadow-sm">
+        <nav class="container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            
+            <!-- Logo --><a href="#" id="logo-btn" class="">
+                <img src="https://i.postimg.cc/Pq6GrZZh/download.png" alt="VesteBem Logo" class="h-16 w-auto">
+            </a>
+
+            <!-- Menu Central (Desktop) com Megamenu --><div class="hidden flex-1 items-center justify-center space-x-8 md:flex">
+                
+                <!-- Item de Menu: Masculino -->
+                <div class="group relative">
+                    <!-- O py-6 (padding) é importante para dar altura ao hover -->
+                    <a href="#" class="menu-filter-link font-medium text-charcoal hover:text-charcoal-light transition-colors py-6"
+                       data-category="masculino">Masculino</a>
+                    
+                    <!-- Megamenu Masculino -->
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover:block bg-white shadow-xl rounded-b-lg w-screen max-w-3xl p-8 z-50">
+                        <div class="grid grid-cols-3 gap-8">
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="masculino" data-type="roupas">Roupas</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="roupas" data-subcategory="camisetas">Camisetas</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="roupas" data-subcategory="camisas">Camisas</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="roupas" data-subcategory="calcas">Calças</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="roupas" data-subcategory="bermudas">Bermudas</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="roupas" data-subcategory="casacos">Casacos</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="masculino" data-type="calcados">Calçados</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="calcados" data-subcategory="tenis">Tênis</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="calcados" data-subcategory="sapatos">Sapatos</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="masculino" data-type="acessorios">Acessórios</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="acessorios" data-subcategory="bones">Bonés</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="acessorios" data-subcategory="cintos">Cintos</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="masculino" data-type="acessorios" data-subcategory="meias">Meias</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item de Menu: Feminino -->
+                <div class="group relative">
+                    <a href="#" class="menu-filter-link font-medium text-charcoal hover:text-charcoal-light transition-colors py-6"
+                       data-category="feminino">Feminino</a>
+                    <!-- Megamenu Feminino -->
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover:block bg-white shadow-xl rounded-b-lg w-screen max-w-3xl p-8 z-50">
+                        <div class="grid grid-cols-3 gap-8">
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="feminino" data-type="roupas">Roupas</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="roupas" data-subcategory="vestidos">Vestidos</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="roupas" data-subcategory="blusas">Blusas</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="roupas" data-subcategory="calcas">Calças</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="roupas" data-subcategory="saias">Saias</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="roupas" data-subcategory="shorts">Shorts</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="feminino" data-type="calcados">Calçados</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="calcados" data-subcategory="tenis">Tênis</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="calcados" data-subcategory="sandalias">Sandálias</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="calcados" data-subcategory="botas">Botas</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-charcoal mb-3">
+                                    <a href="#" class="menu-filter-link hover:underline" data-category="feminino" data-type="acessorios">Acessórios</a>
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="acessorios" data-subcategory="bolsas">Bolsas</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="acessorios" data-subcategory="lencos">Lenços</a></li>
+                                    <li><a href="#" class="menu-filter-link text-sm text-charcoal-light hover:text-charcoal" data-category="feminino" data-type="acessorios" data-subcategory="bijuterias">Bijuterias</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Simples -->
+                <a href="#" class="font-medium text-charcoal hover:text-charcoal-light transition-colors py-6">Coleções</a>
+                <a href="#" class="menu-filter-link font-medium text-charcoal hover:text-charcoal-light transition-colors py-6"
+                   data-category="unisex">Unisex</a>
+            </div>
+
+            <!-- Ícones (Desktop) --><div class="hidden items-center space-x-4 md:flex">
+                <button id="search-icon" class="relative rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <button id="cart-icon" class="relative rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
+                    <span id="cart-count-badge" class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">0</span>
+                </button>
+                <button id="profile-icon" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </button>
+                <!-- Ícone de Admin (Engrenagem) --><button id="admin-icon" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal hidden">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527c.43-.306.98-.194 1.287.237l.738.964c.307.401.2.95-.237 1.287l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.893.15c.542.09.94.56.94 1.11v1.093c0 .55-.398 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.164.398-.142.854.108 1.204l.527.738c.43.306.538.856.237 1.287l-.738.964c-.307.401-.857.513-1.287.237l-.737-.527c-.35-.25-.806-.272-1.204-.108-.397.165-.71.505-.78.93l-.15.893c-.09.542-.56.94-1.11.94h-1.093c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.855-.142-1.205-.108l-.737.527c-.43.306-.98-.194-1.287-.237l-.738-.964c-.307-.401-.2-.95.237-1.287l.527-.737c.25-.35-.272-.806.108-1.204-.165-.397-.505.71-.93.78l-.893-.15c-.542-.09-.94-.56-.94-1.11v-1.093c0-.55.398-1.02.94-1.11l.893-.149c.425.07.765-.383.93-.78.164-.398.142-.854-.108-1.204l-.527-.738c-.43-.306-.538-.856-.237-1.287l.738-.964c.307.401.857.513 1.287.237l.737.527c.35.25.806.272 1.204.108.397-.165.71.505-.78-.93l.15-.893zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Botões Mobile --><div class="flex items-center md:hidden">
+                <button id="search-icon-mobile" class="relative rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <button id="cart-icon-mobile" class="relative rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
+                    <span id="cart-count-badge-mobile" class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">0</span>
+                </button>
+                <button id="profile-icon-mobile" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </button>
+                <!-- Ícone de Admin Mobile (Engrenagem) --><button id="admin-icon-mobile" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal hidden">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527c.43-.306.98-.194 1.287.237l.738.964c.307.401.2.95-.237 1.287l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.893.15c.542.09.94.56.94 1.11v1.093c0 .55-.398 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.164.398-.142.854.108 1.204l.527.738c.43.306.538.856.237 1.287l-.738.964c-.307.401-.857.513-1.287.237l-.737-.527c-.35-.25-.806-.272-1.204-.108-.397.165-.71.505-.78.93l-.15.893c-.09.542-.56.94-1.11.94h-1.093c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.855-.142-1.205-.108l-.737.527c-.43.306-.98-.194-1.287-.237l-.738-.964c-.307-.401-.2-.95.237-1.287l.527-.737c.25-.35-.272-.806.108-1.204-.165-.397-.505.71-.93.78l-.893-.15c-.542-.09-.94-.56-.94-1.11v-1.093c0-.55.398-1.02.94-1.11l.893-.149c.425.07.765-.383.93-.78.164-.398.142-.854-.108-1.204l-.527-.738c-.43-.306-.538-.856-.237-1.287l.738-.964c.307.401.857.513 1.287.237l.737.527c.35.25.806.272 1.204.108.397-.165.71.505-.78-.93l.15-.893zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                    </svg>
+                </button>
+                <button id="mobile-menu-btn" class="ml-2 rounded-md p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Menu Mobile (oculto por padrão) com Accordion --><div id="mobile-menu" class="hidden md:hidden">
+            <div class="space-y-1 px-2 pb-3 pt-2">
+                <!-- Mobile Menu Item: Masculino -->
+                <div>
+                    <button class="mobile-menu-toggle flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-charcoal hover:bg-beige">
+                        <span class="menu-filter-link" data-category="masculino">Masculino</span>
+                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-submenu hidden space-y-1 pt-2 pl-5">
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="roupas">Roupas (Todas)</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="roupas" data-subcategory="camisetas">Camisetas</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="roupas" data-subcategory="camisas">Camisas</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="roupas" data-subcategory="calcas">Calças</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="calcados">Calçados (Todos)</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="masculino" data-type="acessorios">Acessórios (Todos)</a>
+                    </div>
+                </div>
+                 <!-- Mobile Menu Item: Feminino -->
+                <div>
+                    <button class="mobile-menu-toggle flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-charcoal hover:bg-beige">
+                        <span class="menu-filter-link" data-category="feminino">Feminino</span>
+                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-submenu hidden space-y-1 pt-2 pl-5">
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="feminino" data-type="roupas">Roupas (Todas)</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="feminino" data-type="roupas" data-subcategory="vestidos">Vestidos</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="feminino" data-type="roupas" data-subcategory="blusas">Blusas</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="feminino" data-type="calcados">Calçados (Todos)</a>
+                        <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-sm font-medium text-charcoal-light hover:bg-beige" data-category="feminino" data-type="acessorios">Acessórios (Todos)</a>
+                    </div>
+                </div>
+                
+                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-charcoal hover:bg-beige">Coleções</a>
+                <a href="#" class="menu-filter-link block rounded-md px-3 py-2 text-base font-medium text-charcoal hover:bg-beige" data-category="unisex">Unisex</a>
+                <a href="#" class="block rounded-md bg-amber-100 px-3 py-2 text-base font-bold text-amber-800 hover:bg-amber-200">Ofertas</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal da Loja --><main id="shop-view" class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- Banner Principal --><section id="main-banner" class="relative mb-12 rounded-lg bg-cover bg-center p-8 text-white shadow-xl md:p-16" 
+                 style="background-image: url('https://i.postimg.cc/cJ0S6RGf/imagem-2025-10-28-194451028.png');">
+            
+            <div class="absolute inset-0 rounded-lg bg-black opacity-50"></div>
+
+            <div class="relative z-10">
+                <h1 class="mb-4 text-center text-3xl font-bold md:text-5xl">Coleção de Inverno 2025</h1>
+                <p class="mb-8 text-center text-lg text-gray-200">Descubra as novas tendências. Conforto e estilo para os dias mais frios.</p>
+                <div class="text-center">
+                    <a href="#" class="inline-block rounded-lg bg-white px-8 py-3 text-lg font-bold text-charcoal transition duration-300 hover:bg-gray-200">Conferir Agora</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Produtos --><section>
+            <!-- Cabeçalho da Seção de Produtos (agora dinâmico) -->
+            <div id="shop-header" class="mb-4 flex flex-wrap items-center justify-between gap-4">
+                <h2 id="shop-title" class="text-2xl font-bold text-charcoal sm:text-3xl">Destaques</h2>
+                <button id="clear-filter-btn" class="hidden rounded-lg bg-charcoal px-4 py-2 text-sm font-bold text-white transition duration-300 hover:opacity-80">
+                    &larr; Voltar para Home
+                </button>
+            </div>
+
+
+            <!-- Barra de Filtros --><div class="mb-8 flex items-center justify-between border-b border-border-light pb-4">
+                <div>
+                    <p id="product-count" class="text-sm text-charcoal-light">Carregando produtos...</p>
+                </div>
+                <div>
+                    <button class="flex items-center rounded-md border border-charcoal px-4 py-2 text-sm font-bold text-charcoal hover:bg-beige">
+                        <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678q.112.017.217.034m-16.6 0A23.86 23.86 0 0112 3c2.755 0 5.455.232 8.083.678m-16.6 0S3.12 3.879 3.12 4.5v15c0 .621.879 1.5 8.88 1.5s8.88-.879 8.88-1.5v-15c0-.621-.879-1.5-8.88-1.5M12 15v-3m0 0V9m0 3h3m-3 0H9" />
+                        </svg>
+                        FILTRAR E ORDENAR
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Grade de Produtos (Agora dinâmica) --><div id="product-grid-container" class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                <!-- Produtos serão injetados aqui pelo JavaScript --></div>
+        </section>
+    </main>
+    
+    <!-- Painel de Administração (Oculto) --><main id="admin-panel" class="container mx-auto px-4 py-8 sm:px-6 lg:px-8 hidden">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-bold text-charcoal">Painel Administrativo</h1>
+            <button id="back-to-shop-btn" class="rounded-lg bg-charcoal px-4 py-2 font-bold text-white transition duration-300 hover:opacity-80">
+                &larr; Voltar para Loja
+            </button>
+        </div>
+
+        <!-- Seção de Configurações da Home --><section class="mb-12 rounded-lg bg-white p-6 shadow-md">
+            <h2 class="text-2xl font-bold text-charcoal mb-4">Gerenciar Home</h2>
+            <form id="home-settings-form" class="space-y-4">
+                <h3 class="text-lg font-semibold text-charcoal-light">Banner Principal</h3>
+                <div>
+                    <label for="banner-title" class="block text-sm font-medium text-charcoal-light">Título do Banner</label>
+                    <input type="text" id="banner-title" class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                </div>
+                <div>
+                    <label for="banner-text" class="block text-sm font-medium text-charcoal-light">Texto do Banner</label>
+                    <input type="text" id="banner-text" class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                </div>
+                <div>
+                    <label for="banner-image" class="block text-sm font-medium text-charcoal-light">URL da Imagem do Banner</label>
+                    <input type="url" id="banner-image" placeholder="https://i.postimg.cc/..." class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="rounded-lg bg-charcoal px-6 py-2 font-bold text-white transition duration-300 hover:opacity-80">
+                        Salvar Banner
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Seção de Adicionar/Editar Produto --><section class="mb-12 rounded-lg bg-white p-6 shadow-md">
+            <h2 class="text-2xl font-bold text-charcoal mb-4">Adicionar/Editar Produto</h2>
+            <form id="admin-form" class="space-y-4">
+                <!-- ID oculto para saber se estamos editando --><input type="hidden" id="product-id">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-name" class="block text-sm font-medium text-charcoal-light">Nome do Produto</label>
+                        <input type="text" id="product-name" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="product-discount-tag" class="block text-sm font-medium text-charcoal-light">Tag de Desconto (ex: 15% OFF)</label>
+                        <input type="text" id="product-discount-tag" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                     <div>
+                        <label for="product-old-price" class="block text-sm font-medium text-charcoal-light">Preço "De" (ex: 229.90)</label>
+                        <input type="number" step="0.01" id="product-old-price" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="product-price" class="block text-sm font-medium text-charcoal-light">Preço "Por" (ex: 189.90)</label>
+                        <input type="number" step="0.01" id="product-price" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="product-installments" class="block text-sm font-medium text-charcoal-light">Parcelamento (ex: 3x de R$ 63,30)</label>
+                        <input type="text" id="product-installments" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="product-image" class="block text-sm font-medium text-charcoal-light">URL da Imagem</label>
+                    <input type="url" id="product-image" required placeholder="https://i.postimg.cc/..." class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                </div>
+                
+                <!-- CAMPOS DE CATEGORIA -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                     <div>
+                        <label for="product-category" class="block text-sm font-medium text-charcoal-light">Categoria (masculino, feminino, unisex)</label>
+                        <input type="text" id="product-category" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="product-type" class="block text-sm font-medium text-charcoal-light">Tipo (roupas, calcados, acessorios)</label>
+                        <input type="text" id="product-type" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="product-subcategory" class="block text-sm font-medium text-charcoal-light">Subcategoria (camisas, calcas, tenis)</label>
+                        <input type="text" id="product-subcategory" required class="mt-1 block w-full rounded-md border border-border-light p-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                </div>
+
+                <!-- NOVO CAMPO DE DESTAQUE -->
+                <div class="pt-4">
+                    <div class="flex items-center">
+                        <input id="product-featured" name="product-featured" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-charcoal focus:ring-charcoal">
+                        <label for="product-featured" class="ml-3 block text-sm font-medium text-charcoal">Marcar como Destaque (aparece na Home)</label>
+                    </div>
+                </div>
+
+
+                <div class="text-right space-x-4">
+                    <button type="button" id="cancel-edit-btn" class="rounded-lg bg-gray-200 px-6 py-2 font-bold text-charcoal transition duration-300 hover:bg-gray-300 hidden">
+                        Cancelar Edição
+                    </button>
+                    <button type="submit" class="rounded-lg bg-charcoal px-6 py-2 font-bold text-white transition duration-300 hover:opacity-80">
+                        Salvar Produto
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Seção de Gerenciar Produtos --><section class="rounded-lg bg-white p-6 shadow-md">
+            <h2 class="text-2xl font-bold text-charcoal mb-4">Gerenciar Produtos</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-border-light">
+                    <thead class="bg-beige">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-charcoal-light">Imagem</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-charcoal-light">Nome</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-charcoal-light">Preço</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-charcoal-light">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-products-list" class="divide-y divide-border-light bg-white">
+                        <!-- Lista de produtos do admin será injetada aqui --></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé --><footer class="mt-16 bg-charcoal text-beige">
+        <div class="container mx-auto grid grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-4 lg:px-8">
+            <!-- Conteúdo do Rodapé --><div>
+                <h3 class="text-xl font-bold text-white">VesteBem</h3>
+                <p class="mt-4 text-sm">Estilo e conforto para todos os momentos. Roupas que contam sua história.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold text-white">Compre</h4>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li><a href="#" class="menu-filter-link hover:text-white" data-category="masculino">Masculino</a></li>
+                    <li><a href="#" class="menu-filter-link hover:text-white" data-category="feminino">Feminino</a></li>
+                    <li><a href="#" class="hover:text-white">Infantil</a></li>
+                    <li><a href="#" class="hover:text-white">Ofertas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold text-white">Ajuda</h4>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    <li><a href="#" class="hover:text-white">Rastrear Pedido</a></li>
+                    <li><a href="#" class="hover:text-white">Política de Troca</a></li>
+                    <li><a href="#" class="hover:text-white">Fale Conosco</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold text-white">Siga-nos</h4>
+                <div class="mt-4 flex space-x-4">
+                    <a href="#" class="text-beige hover:text-white">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="#" class="text-beige hover:text-white">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2.105c.07.014.16.026.248.038l.006.004.018.01a9.043 9.043 0 014.16 1.025 5.09 5.09 0 012.32 2.32A9.044 9.044 0 0121.895 9.68l.01.018.004.006c.012.088.024.178.038.248l.004.01.002.008c.026.11.048.22.068.332l.004.016.002.008.002.01c.044.22.08.44.11.662l.002.012.002.012v.004c.03.24.054.48.07.722l.002.012v.004c.014.238.02.478.02.72v.002c0 .24 0 .48-.02.718v.004l-.002.012c-.016.242-.04.482-.07.722v.004l-.002.012c-.03.222-.066.442-.11.662l-.002.01-.002.01-.004.016c-.02.112-.042.222-.068.332l-.002.008-.004.01c-.014.07-.026.16-.038.248l-.004.006-.018.01a9.043 9.043 0 01-1.025 4.16 5.09 5.09 0 01-2.32 2.32A9.044 9.044 0 019.68 21.895l-.018.01-.006.004c-.088.012-.178-.024-.248-.038l-.01-.004-.008-.002c-.11-.026-.22-.048-.332-.068l-.016-.004-.008-.002-.01-.002c-.22-.044-.44-.08-.662-.11l-.012-.002-.012-.002h-.004c-.24-.03-.48-.054-.722-.07l-.012-.002h-.004c-.238-.014-.478-.02-.72-.02h-.002c-.24 0-.48 0-.718-.02h-.004l-.012-.002c-.242-.016-.482-.04-.722-.07h-.004l-.012-.002c-.222-.03-.442-.066-.662-.11l-.01-.002-.01-.002-.016-.004c-.112-.02-.222-.042-.332-.068l-.008-.002-.01-.004c-.07-.014-.16-.026-.248-.038l-.006-.004-.018-.01a9.043 9.043 0 01-4.16-1.025 5.09 5.09 0 01-2.32-2.32A9.044 9.044 0 012.105 9.68l-.01-.018-.004-.006C2.079 9.588 2.067 9.498 2.053 9.25l-.004-.01-.002-.008c-.026-.11-.048-.22-.068-.332l-.004-.016-.002-.008-.002-.01c-.044-.22-.08-.44-.11-.662l-.002-.012-.002-.012v-.004c-.03-.24-.054-.48-.07-.722l-.002-.012v.004C2.002 4.718 2 4.478 2 4.24v-.002c0-.24 0-.48.02-.718v.004l.002-.012c.016-.242.04-.482.07-.722v.004l.002-.012c.03-.222.066-.442.11-.662l-.002-.01.002-.01.004-.016c.02-.112.042.222.068-.332l-.002-.008.004-.01c.014-.07.026-.16.038-.248l.004-.006.018-.01a9.043 9.043 0 011.025-4.16 5.09 5.09 0 012.32-2.32A9.044 9.044 0 019.68 2.105l.018-.01.006-.004c.088-.012.178-.024.248-.038l.01-.004.008-.002c.11-.026.22-.048.332-.068l.016-.004.008-.002.01-.002c-.22-.044-.44-.08-.662-.11l-.012-.002-.012-.002h.004c-.24-.03-.48-.054-.722-.07l-.012-.002h-.004c-.238-.014-.478-.02-.72-.02zm-1.04 1.772A7.27 7.27 0 009.68 3.89a7.27 7.27 0 00-1.595.018 7.27 7.27 0 00-1.21.144 7.27 7.27 0 00-1.16.27 7.27 7.27 0 00-1.09.41 7.27 7.27 0 00-.99.565 7.27 7.27 0 00-.88.72 7.27 7.27 0 00-.72.88 7.27 7.27 0 00-.565.99 7.27 7.27 0 00-.41 1.09 7.27 7.27 0 00-.27 1.16 7.27 7.27 0 00-.144 1.21A7.27 7.27 0 003.89 9.68a7.27 7.27 0 00.018 1.595 7.27 7.27 0 00.144 1.21 7.27 7.27 0 00.27 1.16 7.27 7.27 0 00.41 1.09 7.27 7.27 0 00.565.99 7.27 7.27 0 00.72.88 7.27 7.27 0 00.88.72 7.27 7.27 0 00.99.565 7.27 7.27 0 001.09.41 7.27 7.27 0 001.16.27 7.27 7.27 0 001.21.144A7.27 7.27 0 009.68 20.11a7.27 7.27 0 001.595-.018 7.27 7.27 0 001.21-.144 7.27 7.27 0 001.16-.27 7.27 7.27 0 001.09-.41 7.27 7.27 0 00.99-.565 7.27 7.27 0 00.88-.72 7.27 7.27 0 00.72-.88 7.27 7.27 0 00.565-.99 7.27 7.27 0 00.41-1.09 7.27 7.27 0 00.27-1.16 7.27 7.27 0 00.144-1.21A7.27 7.27 0 0020.11 9.68a7.27 7.27 0 00-.018-1.595 7.27 7.27 0 00-.144-1.21 7.27 7.27 0 00-.27-1.16 7.27 7.27 0 00-.41-1.09 7.27 7.27 0 00-.565-.99 7.27 7.27 0 00-.72-.88 7.27 7.27 0 00-.88-.72 7.27 7.27 0 00-.99-.565 7.27 7.27 0 00-1.09-.41 7.27 7.27 0 00-1.16-.27 7.27 7.27 0 00-1.21-.144A7.27 7.27 0 0011.275 3.872zm-1.595 2.828a3.9 3.9 0 110 7.8 3.9 3.9 0 010-7.8zM12 8.7a3.3 3.3 0 100 6.6 3.3 3.3 0 000-6.6zm6.308-2.61a.975.975 0 100-1.95.975.975 0 000 1.95z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-charcoal-light border-opacity-30 bg-charcoal">
+            <div class="container mx-auto px-4 py-6 text-center text-sm text-beige">
+                &copy; 2025 VesteBem. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal do Carrinho --><div id="cart-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hidden">
+        <div class="mx-4 w-full max-w-lg transform rounded-lg bg-white shadow-xl transition-all">
+            <div class="flex items-center justify-between border-b border-border-light px-6 py-4">
+                <h3 class="text-2xl font-bold text-charcoal">Meu Carrinho</h3>
+                <button id="close-cart-btn" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div id="cart-items-container" class="max-h-[60vh] overflow-y-auto p-6">
+                <p id="empty-cart-message" class="text-center text-charcoal-light">Seu carrinho está vazio.</p>
+            </div>
+            <div class="border-t border-border-light px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-lg font-medium text-charcoal">Subtotal:</span>
+                    <span id="cart-subtotal" class="text-xl font-bold text-charcoal">R$ 0,00</span>
+                </div>
+                <p class="mt-1 text-sm text-charcoal-light">Taxas e frete serão calculados no checkout.</p>
+                <button id="checkout-btn" class="mt-6 w-full rounded-lg bg-charcoal px-6 py-3 text-lg font-bold text-white transition duration-300 hover:opacity-80 opacity-50 cursor-not-allowed"
+                        disabled>
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Gemini (Sugestão de IA) --><div id="gemini-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hidden">
+        <div class="mx-4 w-full max-w-lg transform rounded-lg bg-white shadow-xl transition-all">
+            <div class="flex items-center justify-between border-b border-border-light px-6 py-4">
+                <h3 class="text-2xl font-bold text-charcoal">✨ Sugestão de Look</h3>
+                <button id="close-gemini-btn" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div id="gemini-content-wrapper" class="relative min-h-[150px] p-6">
+                <div id="gemini-loading" class="absolute inset-0 z-10 flex items-center justify-center rounded-b-lg bg-white bg-opacity-80 hidden">
+                    <svg class="h-10 w-10 animate-spin text-charcoal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+                <div id="gemini-content" class="prose prose-sm max-w-none text-charcoal-light">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login/Cadastro --><div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hidden">
+        <div class="mx-4 w-full max-w-md transform rounded-lg bg-white shadow-xl transition-all">
+            <div class="flex items-center justify-between border-b border-border-light px-6 py-4">
+                <h3 id="auth-title" class="text-2xl font-bold text-charcoal">Login</h3>
+                <button id="close-auth-btn" class="rounded-full p-2 text-charcoal-light hover:bg-beige hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <form id="login-form">
+                    <div class="mb-4">
+                        <label for="login-email" class="block text-sm font-medium text-charcoal-light">Email</label>
+                        <input type="email" id="login-email" required class="mt-1 block w-full rounded-md border border-border-light px-3 py-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-sm font-medium text-charcoal-light">Senha</label>
+                        <input type="password" id="login-password" required class="mt-1 block w-full rounded-md border border-border-light px-3 py-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <button type="submit" class="w-full rounded-lg bg-charcoal px-6 py-3 text-lg font-bold text-white transition duration-300 hover:opacity-80">
+                        Entrar
+                    </button>
+                    <p class="mt-4 text-center text-sm">
+                        Não tem conta? <button type="button" id="show-register-form" class="font-medium text-blue-600 hover:underline">Cadastre-se</button>
+                    </p>
+                </form>
+                <form id="register-form" class="hidden">
+                    <div class="mb-4">
+                        <label for="register-name" class="block text-sm font-medium text-charcoal-light">Nome</label>
+                        <input type="text" id="register-name" required class="mt-1 block w-full rounded-md border border-border-light px-3 py-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div class="mb-4">
+                        <label for="register-email" class="block text-sm font-medium text-charcoal-light">Email</label>
+                        <input type="email" id="register-email" required class="mt-1 block w-full rounded-md border border-border-light px-3 py-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <div class="mb-6">
+                        <label for="register-password" class="block text-sm font-medium text-charcoal-light">Senha</label>
+                        <input type="password" id="register-password" required class="mt-1 block w-full rounded-md border border-border-light px-3 py-2 shadow-sm focus:border-charcoal focus:outline-none focus:ring-charcoal sm:text-sm">
+                    </div>
+                    <button type="submit" class="w-full rounded-lg bg-charcoal px-6 py-3 text-lg font-bold text-white transition duration-300 hover:opacity-80">
+                        Criar Conta
+                    </button>
+                    <p class="mt-4 text-center text-sm">
+                        Já tem conta? <button type="button" id="show-login-form" class="font-medium text-blue-600 hover:underline">Faça Login</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Busca --><div id="search-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black bg-opacity-50 transition-opacity duration-300 hidden pt-20">
+        <div class="mx-4 w-full max-w-xl transform rounded-lg bg-white shadow-xl transition-all">
+            <div class="relative">
+                <input type="text" id="search-modal-input" placeholder="Buscar produtos..." class="w-full rounded-lg border border-border-light p-4 pr-12 text-lg focus:border-charcoal focus:outline-none focus:ring-1 focus:ring-charcoal">
+                <button id="search-modal-btn" class="absolute right-0 top-0 rounded-r-lg p-4 text-charcoal-light hover:text-charcoal">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                </button>
+            </div>
+             <!-- O botão de fechar fica "fora" do modal, no overlay -->
+             <button id="close-search-btn" class="absolute top-4 right-4 rounded-full p-2 text-white hover:text-gray-300">
+                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Principal --><script>
+        // --- CONFIGURAÇÃO DA API GEMINI ---
+        const apiKey = ""; // API Key será injetada pelo ambiente
+        const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // --- NOSSO "BANCO DE DADOS" TEMPORÁRIO ---
+        
+        // NOVO: Configurações da Loja (para o banner)
+        let siteSettings = {
+            mainBanner: {
+                title: 'Coleção de Inverno 2025',
+                text: 'Descubra as novas tendências. Conforto e estilo para os dias mais frios.',
+                image: 'https://i.postimg.cc/cJ0S6RGf/imagem-2025-10-28-194451028.png'
+            }
+        };
+
+        let products = [
+            {
+                id: "1",
+                name: "Camisa Linho Premium",
+                price: 189.90,
+                oldPrice: 229.90,
+                installments: "3x de R$ 63,30",
+                discountTag: "15% OFF",
+                image: "https://i.postimg.cc/NFyB8QM4/imagem-2025-10-28-191212801.png",
+                category: "masculino",
+                type: "roupas",
+                subcategory: "camisas",
+                isFeatured: true // NOVO: Controla destaques
+            },
+            {
+                id: "2",
+                name: "Calça Jeans Slim Fit",
+                price: 229.90,
+                oldPrice: 259.90,
+                installments: "4x de R$ 57,47",
+                discountTag: "10% OFF",
+                image: "https://i.postimg.cc/c6yCrvmn/imagem-2025-10-28-192424692.png",
+                category: "masculino",
+                type: "roupas",
+                subcategory: "calcas",
+                isFeatured: true // NOVO: Controla destaques
+            },
+            {
+                id: "3",
+                name: "Vestido Floral Midi",
+                price: 349.90,
+                oldPrice: 439.90,
+                installments: "5x de R$ 69,98",
+                discountTag: "20% OFF",
+                image: "https://i.postimg.cc/J7JkW8K7/imagem-2025-10-28-192705056.png",
+                category: "feminino",
+                type: "roupas",
+                subcategory: "vestidos",
+                isFeatured: false // NOVO: Controla destaques
+            },
+            {
+                id: "4",
+                name: "Jaqueta Corta-Vento",
+                price: 279.90,
+                oldPrice: 329.90,
+                installments: "4x de R$ 69,97",
+                discountTag: "15% OFF",
+                image: "https://i.postimg.cc/Pq4SyZpB/imagem-2025-10-28-193418007.png",
+                category: "unisex",
+                type: "roupas",
+                subcategory: "casacos",
+                isFeatured: true // NOVO: Controla destaques
+            }
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ESTADO DA APLICAÇÃO ---
+            let cart = []; // Array para armazenar os itens do carrinho
+            let isLoggedIn = false; // Controla o estado de login
+            let isAdmin = false; // Controla o estado de admin
+
+            // --- SELETORES DE ELEMENTOS ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const cartIcon = document.getElementById('cart-icon');
+            const cartIconMobile = document.getElementById('cart-icon-mobile');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartBtn = document.getElementById('close-cart-btn');
+            const cartCountBadges = [
+                document.getElementById('cart-count-badge'),
+                document.getElementById('cart-count-badge-mobile')
+            ];
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartSubtotalEl = document.getElementById('cart-subtotal');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const toastNotification = document.getElementById('toast-notification');
+            const checkoutButton = document.getElementById('checkout-btn');
+            
+            // --- Seletores do Modal Gemini ---
+            const geminiModal = document.getElementById('gemini-modal');
+            const closeGeminiBtn = document.getElementById('close-gemini-btn');
+            const geminiLoading = document.getElementById('gemini-loading');
+            const geminiContent = document.getElementById('gemini-content');
+
+            // --- Seletores de Autenticação ---
+            const profileIcon = document.getElementById('profile-icon');
+            const profileIconMobile = document.getElementById('profile-icon-mobile');
+            const authModal = document.getElementById('auth-modal');
+            const closeAuthBtn = document.getElementById('close-auth-btn');
+            const authTitle = document.getElementById('auth-title');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const showRegisterBtn = document.getElementById('show-register-form');
+            const showLoginBtn = document.getElementById('show-login-form');
+
+            // --- Seletores de Busca ---
+            const searchIcon = document.getElementById('search-icon'); // Ícone Desktop
+            const searchIconMobile = document.getElementById('search-icon-mobile'); // Ícone Mobile
+            const searchModal = document.getElementById('search-modal');
+            const closeSearchBtn = document.getElementById('close-search-btn');
+            const searchModalInput = document.getElementById('search-modal-input');
+            const searchModalBtn = document.getElementById('search-modal-btn');
+            const productGridContainer = document.getElementById('product-grid-container'); // Onde os cards da loja entram
+            const productCountEl = document.getElementById('product-count');
+
+            // --- Seletores de Filtro/Navegação ---
+            const mainBanner = document.getElementById('main-banner');
+            const bannerElement = document.getElementById('main-banner'); // O <section>
+            const bannerTitleEl = document.querySelector('#main-banner h1');
+            const bannerTextEl = document.querySelector('#main-banner p');
+            const shopTitle = document.getElementById('shop-title');
+            const clearFilterBtn = document.getElementById('clear-filter-btn');
+
+            // --- Seletores do Painel Admin ---
+            const logoBtn = document.getElementById('logo-btn'); // ID do Logo
+            const adminIcon = document.getElementById('admin-icon');
+            const adminIconMobile = document.getElementById('admin-icon-mobile');
+            const shopView = document.getElementById('shop-view');
+            const adminPanel = document.getElementById('admin-panel');
+            const backToShopBtn = document.getElementById('back-to-shop-btn');
+            // Form Gerenciar Home
+            const homeSettingsForm = document.getElementById('home-settings-form');
+            const bannerTitleInput = document.getElementById('banner-title');
+            const bannerTextInput = document.getElementById('banner-text');
+            const bannerImageInput = document.getElementById('banner-image');
+            // Form Gerenciar Produto
+            const adminForm = document.getElementById('admin-form');
+            const adminProductsList = document.getElementById('admin-products-list'); // <tbody> da tabela
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const hiddenProductId = document.getElementById('product-id');
+            const featuredCheckbox = document.getElementById('product-featured'); // NOVO: Checkbox
+
+            let toastTimer;
+
+            // --- FUNÇÕES ---
+
+            /**
+             * Função centralizada para voltar à loja (e mostrar a home)
+             */
+            function goToShopView() {
+                shopView.classList.remove('hidden');
+                adminPanel.classList.add('hidden');
+                renderHomePage(); // Mostra a home atualizada
+            }
+            
+            /**
+             * Renderiza a Home Page (Banner + Destaques)
+             */
+            function renderHomePage() {
+                mainBanner.classList.remove('hidden');
+                shopTitle.textContent = 'Destaques';
+                clearFilterBtn.classList.add('hidden');
+                
+                renderMainBanner(); // Atualiza o banner
+                
+                // Filtra para mostrar apenas produtos marcados como 'isFeatured'
+                const featuredProducts = products.filter(p => p.isFeatured === true);
+                renderShopProducts(featuredProducts);
+            }
+            
+            /**
+             * Atualiza o conteúdo do banner principal
+             */
+            function renderMainBanner() {
+                const { title, text, image } = siteSettings.mainBanner;
+                bannerElement.style.backgroundImage = `url('${image}')`;
+                bannerTitleEl.textContent = title;
+                bannerTextEl.textContent = text;
+            }
+
+
+            /**
+             * Renderiza os produtos na grade da loja
+             * @param {Array} productsToRender - A lista de produtos a ser mostrada.
+             */
+            function renderShopProducts(productsToRender) {
+                // Limpa a grade atual
+                productGridContainer.innerHTML = '';
+                
+                if (productsToRender.length === 0) {
+                     productGridContainer.innerHTML = '<p class="text-charcoal-light col-span-full text-center">Nenhum produto encontrado para esta seleção.</p>';
+                }
+
+                productsToRender.forEach(product => {
+                    const productCard = `
+                        <!-- Card de Produto - Efeito "Clean" (sem sombra/scale no card, só zoom na imagem) -->
+                        <div class="product-card group relative rounded-lg bg-white p-4 transition-all duration-300 ease-in-out"
+                             data-name="${product.name}">
+                            <div class="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200">
+                                <!-- Tag de Desconto com nova cor -->
+                                <div class="absolute top-2 left-2 z-10 rounded-full bg-charcoal px-3 py-1 text-xs font-bold text-white">${product.discountTag}</div>
+                                <img src="${product.image}" alt="${product.name}" class="h-full w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-110">
+                            </div>
+                            <h3 class="mt-4 truncate text-base font-medium text-charcoal">${product.name}</h3>
+                            <div class="mt-1">
+                                <p class="text-sm text-charcoal-light line-through">R$ ${product.oldPrice.toFixed(2).replace('.', ',')}</p>
+                                <p class="text-xl font-bold text-charcoal">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+                                <p class="text-sm text-charcoal-light">ou ${product.installments}</p>
+                            </div>
+                            <button class="add-to-cart-btn mt-4 w-full rounded-lg bg-charcoal px-4 py-2 font-bold text-white transition duration-300 hover:opacity-80"
+                                    data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    `;
+                    productGridContainer.innerHTML += productCard;
+                });
+                // Atualiza a contagem de produtos
+                productCountEl.textContent = `${productsToRender.length} produtos`;
+            }
+
+            /**
+             * Renderiza os produtos na tabela do admin
+             */
+            function renderAdminTable() {
+                // Limpa a tabela atual
+                adminProductsList.innerHTML = '';
+
+                products.forEach(product => {
+                    const productRow = `
+                        <tr class="product-admin-row" data-id="${product.id}">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <img src="${product.image}" alt="${product.name}" class="h-10 w-10 rounded-md object-cover">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-charcoal">${product.name}</div>
+                                ${product.isFeatured ? '<span class="text-xs font-bold text-blue-600">DESTAQUE</span>' : ''}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-charcoal">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                <button class="edit-product-btn p-1 text-blue-600 hover:text-blue-900" data-id="${product.id}">
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828zM4 14.586V17h2.414l-2.414-2.414zM15.5 4.414L14.086 3 6 11.086V13h1.914L15.5 4.414z" /></svg>
+                                </button>
+                                <button class="delete-product-btn p-1 text-red-600 hover:text-red-900" data-id="${product.id}">
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 6h6v10H7V6zm2 2v6h2V8H9z" clip-rule="evenodd" /></svg>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    adminProductsList.innerHTML += productRow;
+                });
+            }
+
+            /**
+             * Mostra a notificação "toast" por 3 segundos.
+             * @param {string} message - A mensagem para exibir.
+             * @param {string} type - 'success' (verde), 'error' (vermelho) ou 'info' (azul).
+             */
+            function showToast(message, type = 'success') {
+                clearTimeout(toastTimer);
+                toastNotification.querySelector('p').textContent = message;
+                toastNotification.classList.remove('bg-green-600', 'bg-red-600', 'bg-blue-600');
+                if (type === 'success') toastNotification.classList.add('bg-green-600');
+                else if (type === 'error') toastNotification.classList.add('bg-red-600');
+                else toastNotification.classList.add('bg-blue-600'); // Manteve o azul para 'info'
+                toastNotification.classList.remove('hidden');
+                toastTimer = setTimeout(() => {
+                    toastNotification.classList.add('hidden');
+                }, 3000);
+            }
+
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('hidden');
+            }
+
+            function toggleCartModal() {
+                cartModal.classList.toggle('hidden');
+            }
+            
+            // --- Funções de Modal (Busca, Auth, Gemini) ---
+            function showAuthModal() {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                authTitle.textContent = 'Login';
+                authModal.classList.remove('hidden');
+            }
+
+            function hideAuthModal() {
+                authModal.classList.add('hidden');
+            }
+
+            function showSearchModal() {
+                searchModal.classList.remove('hidden');
+                searchModalInput.focus(); // Foca no input ao abrir
+            }
+            
+            function hideSearchModal() {
+                searchModal.classList.add('hidden');
+            }
+
+            function showGeminiModal() {
+                geminiContent.innerHTML = '';
+                geminiLoading.classList.remove('hidden');
+                geminiModal.classList.remove('hidden');
+            }
+
+            function hideGeminiModal() {
+                geminiModal.classList.add('hidden');
+                geminiLoading.classList.add('hidden');
+            }
+            
+            function handleSearch() {
+                const searchTerm = searchModalInput.value.toLowerCase().trim();
+                const filtered = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm)
+                );
+                
+                mainBanner.classList.add('hidden');
+                shopTitle.textContent = `Busca por: "${searchTerm}"`;
+                clearFilterBtn.classList.remove('hidden');
+                renderShopProducts(filtered);
+                
+                hideSearchModal(); // Fecha o modal após a busca
+                searchModalInput.value = ''; // Limpa o input
+            }
+
+            /**
+             * Atualiza a UI com base no status de admin
+             */
+            function updateAdminUI() {
+                if (isAdmin) {
+                    adminIcon.classList.remove('hidden');
+                    adminIconMobile.classList.remove('hidden');
+                } else {
+                    adminIcon.classList.add('hidden');
+                    adminIconMobile.classList.add('hidden');
+                }
+            }
+
+            async function handleSuggestLook(productName) {
+                showGeminiModal();
+                const systemPrompt = "Você é um assistente de moda e personal shopper da loja VesteBem. Responda em português do Brasil. Formate sua resposta como um HTML simples (use <ul> e <li>). Não inclua <html>, <head>, ou <body> tags. Comece com uma frase curta de introdução (ex: 'Ótima escolha! Para combinar com...').";
+                const userQuery = `Um cliente está interessado no item: '${productName}'. Sugira 2 ou 3 outros itens (ex: calça, sapato, acessório) que combinariam bem para um look completo.`;
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                };
+
+                try {
+                    let response;
+                    let retries = 3;
+                    let delay = 1000;
+                    while (retries > 0) {
+                        response = await fetch(geminiApiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (response.ok) break;
+                        if (response.status === 429 || response.status >= 500) {
+                            retries--;
+                            if (retries === 0) throw new Error(`Falha na API após várias tentativas: ${response.statusText}`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2;
+                        } else {
+                            throw new Error(`Falha na API: ${response.statusText}`);
+                        }
+                    }
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        geminiContent.innerHTML = candidate.content.parts[0].text;
+                    } else {
+                        throw new Error("Resposta da API inválida.");
+                    }
+                } catch (error) {
+                    console.error("Erro ao chamar API do Gemini:", error);
+                    geminiContent.innerHTML = '<p class="text-red-600 font-medium">Desculpe, não foi possível gerar uma sugestão no momento. Tente novamente mais tarde.</p>';
+                } finally {
+                    geminiLoading.classList.add('hidden');
+                }
+            }
+
+
+            function addItemToCart(id, name, price, image) {
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, image, quantity: 1 });
+                }
+                updateCartUI();
+                showToast('Item adicionado ao carrinho!', 'success');
+            }
+
+            function removeItemFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                updateCartUI();
+            }
+            
+            function changeItemQuantity(id, newQuantity) {
+                 const item = cart.find(item => item.id === id);
+                 if (item) {
+                    if (newQuantity <= 0) {
+                        removeItemFromCart(id);
+                    } else {
+                        item.quantity = newQuantity;
+                        updateCartUI();
+                    }
+                 }
+            }
+
+            function updateCartUI() {
+                cartItemsContainer.innerHTML = '';
+                let subtotal = 0;
+                let totalItems = 0;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.appendChild(emptyCartMessage);
+                    checkoutButton.disabled = true;
+                    checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    emptyCartMessage.remove();
+                    checkoutButton.disabled = false;
+                    checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                    cart.forEach(item => {
+                        const itemTotalPrice = item.price * item.quantity;
+                        subtotal += itemTotalPrice;
+                        totalItems += item.quantity;
+
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'flex items-center space-x-4 py-3 border-b border-border-light';
+                        itemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" class="h-20 w-20 rounded-lg object-cover border border-border-light">
+                            <div class="flex-1">
+                                <h4 class="font-medium text-charcoal">${item.name}</h4>
+                                <p class="text-sm text-charcoal-light">Preço: R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                                <div class="flex items-center mt-2">
+                                    <label for="qty-${item.id}" class="text-sm font-medium text-charcoal-light mr-2">Qtd:</label>
+                                    <input type="number" id="qty-${item.id}" 
+                                           class="quantity-input w-16 rounded-md border border-border-light p-1 text-center" 
+                                           value="${item.quantity}" min="0" data-id="${item.id}">
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-charcoal">R$ ${itemTotalPrice.toFixed(2).replace('.', ',')}</p>
+                                <button class="remove-item-btn text-sm text-red-600 hover:text-red-800 font-medium mt-1" data-id="${item.id}">
+                                    Remover
+                                </button>
+                                <button class="suggest-look-btn w-full text-left text-sm text-blue-600 hover:text-blue-800 font-medium mt-2" data-name="${item.name}">
+                                    ✨ Combinar
+                                </button>
+                            </div>
+                        `;
+                        cartItemsContainer.appendChild(itemElement);
+                    });
+                }
+                cartCountBadges.forEach(badge => {
+                    badge.textContent = totalItems;
+                });
+                cartSubtotalEl.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            }
+
+            // --- REGISTRO DE EVENTOS ---
+            
+            // --- Evento de Filtro de Categoria (Event Delegation) ---
+            document.addEventListener('click', (e) => {
+                const target = e.target.closest('.menu-filter-link');
+                if (!target) return; // Não foi um link de filtro
+                
+                e.preventDefault();
+                const { category, type, subcategory } = target.dataset;
+                let titleParts = [];
+                let filtered = products;
+
+                // Função para capitalizar
+                const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+                // Aplica os filtros
+                if (category) {
+                    filtered = filtered.filter(p => p.category === category);
+                    titleParts.push(capitalize(category));
+                }
+                if (type) {
+                    filtered = filtered.filter(p => p.type === type);
+                    titleParts.push(capitalize(type));
+                }
+                if (subcategory) {
+                    filtered = filtered.filter(p => p.subcategory === subcategory);
+                    titleParts.push(capitalize(subcategory));
+                }
+
+                // Atualiza a UI
+                mainBanner.classList.add('hidden');
+                shopTitle.textContent = titleParts.join(' > ');
+                clearFilterBtn.classList.remove('hidden');
+                renderShopProducts(filtered);
+
+                // Fecha o menu mobile se estiver aberto
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
+
+            // --- Evento para Limpar Filtro ---
+            clearFilterBtn.addEventListener('click', renderHomePage);
+
+
+            // --- Eventos do Menu Mobile (Accordion) ---
+            mobileMenu.addEventListener('click', (e) => {
+                const toggleBtn = e.target.closest('.mobile-menu-toggle');
+                if (toggleBtn) {
+                    // Impede que o clique no span (que também é um link de filtro) acione o accordion
+                    if (e.target.classList.contains('menu-filter-link')) {
+                        return;
+                    }
+                    
+                    const submenu = toggleBtn.nextElementSibling; // Pega o div.mobile-submenu
+                    submenu.classList.toggle('hidden');
+                    const icon = toggleBtn.querySelector('svg');
+                    icon.classList.toggle('rotate-180'); // Gira a setinha
+                }
+            });
+
+
+            // --- Eventos de Busca (Modal) ---
+            searchIcon.addEventListener('click', showSearchModal);
+            searchIconMobile.addEventListener('click', showSearchModal);
+            closeSearchBtn.addEventListener('click', hideSearchModal);
+            searchModal.addEventListener('click', (e) => {
+                // Fecha o modal se clicar no overlay (fora da barra de busca)
+                if (e.target === searchModal) {
+                    hideSearchModal();
+                }
+            });
+            searchModalBtn.addEventListener('click', handleSearch);
+            searchModalInput.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+
+            // --- Eventos de Autenticação ---
+            profileIcon.addEventListener('click', showAuthModal);
+            profileIconMobile.addEventListener('click', showAuthModal);
+            closeAuthBtn.addEventListener('click', hideAuthModal);
+            authModal.addEventListener('click', (event) => {
+                if (event.target === authModal) hideAuthModal();
+            });
+            showRegisterBtn.addEventListener('click', () => {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                authTitle.textContent = 'Criar Conta';
+            });
+            showLoginBtn.addEventListener('click', () => {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                authTitle.textContent = 'Login';
+            });
+
+            // Simulação de Login
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = loginForm.querySelector('#login-email').value;
+                const password = loginForm.querySelector('#login-password').value;
+
+                // --- LÓGICA DE ADMIN ---
+                if (email === 'admin@vestebem.com' && password === 'admin') {
+                    isLoggedIn = true;
+                    isAdmin = true;
+                    showToast(`Bem-vindo, Admin!`, 'info');
+                } else {
+                    isLoggedIn = true;
+                    isAdmin = false;
+                    showToast(`Bem-vindo, ${email}!`, 'info');
+                }
+                
+                hideAuthModal();
+                updateAdminUI(); // Mostra/esconde a engrenagem
+                loginForm.reset();
+            });
+
+            // Simulação de Cadastro
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                isLoggedIn = true;
+                isAdmin = false; // Usuários cadastrados não são admins
+                hideAuthModal();
+                showToast(`Conta criada com sucesso, ${registerForm.querySelector('#register-name').value}!`, 'success');
+                updateAdminUI();
+                registerForm.reset();
+            });
+
+
+            // --- Evento de Checkout ---
+            checkoutButton.addEventListener('click', () => {
+                if (isLoggedIn) {
+                    showToast('Redirecionando para o pagamento...', 'info');
+                } else {
+                    toggleCartModal();
+                    showAuthModal();
+                    showToast('Você precisa fazer login para finalizar a compra.', 'error');
+                }
+            });
+
+            // --- Eventos de Navegação do Admin ---
+            function showAdminPanel() {
+                shopView.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                renderAdminTable(); // Renderiza a tabela ao entrar no painel
+                
+                // Preenche o formulário de Configurações da Home
+                bannerTitleInput.value = siteSettings.mainBanner.title;
+                bannerTextInput.value = siteSettings.mainBanner.text;
+                bannerImageInput.value = siteSettings.mainBanner.image;
+            }
+            adminIcon.addEventListener('click', showAdminPanel);
+            adminIconMobile.addEventListener('click', showAdminPanel);
+            
+            // Botão "Voltar para Loja" agora usa a função central
+            backToShopBtn.addEventListener('click', goToShopView);
+
+            // Evento do Logo (Com a lógica de admin)
+            logoBtn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                // Verifica se o painel de admin está visível
+                const isAdminPanelVisible = !adminPanel.classList.contains('hidden');
+
+                if (isAdminPanelVisible) {
+                    // Se estiver no painel admin, volta pra loja
+                    goToShopView();
+                } else {
+                    // Se estiver na loja, limpa os filtros (volta pro topo)
+                    renderHomePage();
+                }
+            });
+
+
+            // --- Eventos de CRUD do Admin ---
+
+            // NOVO: Salvar Configurações da Home (Banner)
+            homeSettingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                siteSettings.mainBanner.title = bannerTitleInput.value;
+                siteSettings.mainBanner.text = bannerTextInput.value;
+                siteSettings.mainBanner.image = bannerImageInput.value;
+                
+                showToast('Banner da Home atualizado!', 'success');
+                renderMainBanner(); // Atualiza o banner (para quando o admin voltar)
+            });
+            
+            // Submissão do Formulário (Adicionar ou Editar Produto)
+            adminForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const id = hiddenProductId.value;
+                const newProduct = {
+                    id: id || Date.now().toString(), // Cria novo ID se não houver um
+                    name: document.getElementById('product-name').value,
+                    discountTag: document.getElementById('product-discount-tag').value,
+                    oldPrice: parseFloat(document.getElementById('product-old-price').value),
+                    price: parseFloat(document.getElementById('product-price').value),
+                    installments: document.getElementById('product-installments').value,
+                    image: document.getElementById('product-image').value,
+                    category: document.getElementById('product-category').value.toLowerCase().trim(),
+                    type: document.getElementById('product-type').value.toLowerCase().trim(),
+                    subcategory: document.getElementById('product-subcategory').value.toLowerCase().trim(),
+                    isFeatured: featuredCheckbox.checked // Salva o estado do checkbox
+                };
+
+                if (id) {
+                    // Modo Edição: substitui o produto existente
+                    products = products.map(p => p.id === id ? newProduct : p);
+                    showToast('Produto atualizado com sucesso!', 'success');
+                } else {
+                    // Modo Adicionar: adiciona o novo produto
+                    products.push(newProduct);
+                    showToast('Produto adicionado com sucesso!', 'success');
+                }
+
+                adminForm.reset(); // Limpa o formulário
+                hiddenProductId.value = ''; // Limpa o ID oculto
+                cancelEditBtn.classList.add('hidden'); // Esconde o botão de cancelar
+                renderAdminTable(); // Atualiza a tabela
+                renderHomePage(); // Atualiza a home (em segundo plano)
+            });
+
+            // Clique no botão "Cancelar Edição"
+            cancelEditBtn.addEventListener('click', () => {
+                adminForm.reset();
+                hiddenProductId.value = '';
+                cancelEditBtn.classList.add('hidden');
+            });
+
+            // Event Delegation para botões de Editar e Deletar na tabela
+            adminProductsList.addEventListener('click', (e) => {
+                const target = e.target.closest('button'); // Acha o botão clicado
+                if (!target) return;
+
+                const id = target.dataset.id;
+                
+                // Botão de Editar
+                if (target.classList.contains('edit-product-btn')) {
+                    const productToEdit = products.find(p => p.id === id);
+                    if (productToEdit) {
+                        // Preenche o formulário com os dados do produto
+                        hiddenProductId.value = productToEdit.id;
+                        document.getElementById('product-name').value = productToEdit.name;
+                        document.getElementById('product-discount-tag').value = productToEdit.discountTag;
+                        document.getElementById('product-old-price').value = productToEdit.oldPrice;
+                        document.getElementById('product-price').value = productToEdit.price;
+                        document.getElementById('product-installments').value = productToEdit.installments;
+                        document.getElementById('product-image').value = productToEdit.image;
+                        document.getElementById('product-category').value = productToEdit.category || '';
+                        document.getElementById('product-type').value = productToEdit.type || '';
+                        document.getElementById('product-subcategory').value = productToEdit.subcategory || '';
+                        featuredCheckbox.checked = productToEdit.isFeatured || false; // Atualiza o checkbox
+
+                        
+                        cancelEditBtn.classList.remove('hidden'); // Mostra o botão de cancelar
+                        adminPanel.scrollIntoView({ behavior: 'smooth' }); // Rola para o topo do painel
+                    }
+                }
+
+                // Botão de Deletar
+                if (target.classList.contains('delete-product-btn')) {
+                    products = products.filter(p => p.id !== id);
+                    renderAdminTable(); // Atualiza a tabela
+                    renderHomePage(); // Atualiza a home
+                    showToast('Produto removido com sucesso!', 'error');
+                }
+            });
+
+
+            // --- Eventos Padrão (Carrinho, Menu, etc.) ---
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            cartIcon.addEventListener('click', toggleCartModal);
+            cartIconMobile.addEventListener('click', toggleCartModal);
+            closeCartBtn.addEventListener('click', toggleCartModal);
+            cartModal.addEventListener('click', (event) => {
+                if (event.target === cartModal) toggleCartModal();
+            });
+
+            // Event Delegation para "Adicionar ao Carrinho" (agora dinâmico)
+            productGridContainer.addEventListener('click', (event) => {
+                const target = event.target.closest('button');
+                if (target && target.classList.contains('add-to-cart-btn')) {
+                    const { id, name, price, image } = target.dataset;
+                    addItemToCart(id, name, parseFloat(price), image);
+                }
+            });
+
+            // Event Delegation para botões de "Remover", "Quantidade" e "Gemini" dentro do carrinho
+            cartItemsContainer.addEventListener('click', (event) => {
+                const target = event.target;
+                if (target.classList.contains('remove-item-btn')) {
+                    const id = target.dataset.id;
+                    removeItemFromCart(id);
+                }
+                if (target.classList.contains('suggest-look-btn')) {
+                    const name = target.dataset.name;
+                    handleSuggestLook(name);
+                }
+            });
+            
+            cartItemsContainer.addEventListener('change', (event) => {
+                const target = event.target;
+                if (target.classList.contains('quantity-input')) {
+                    const id = target.dataset.id;
+                    const newQuantity = parseInt(target.value, 10);
+                    changeItemQuantity(id, newQuantity);
+                }
+            });
+            
+            closeGeminiBtn.addEventListener('click', hideGeminiModal);
+            geminiModal.addEventListener('click', (event) => {
+                if (event.target === geminiModal) hideGeminiModal();
+            });
+
+            // --- INICIALIZAÇÃO ---
+            renderHomePage(); // Renderiza a home (banner + destaques) pela primeira vez
+            updateCartUI(); // Atualiza o carrinho (deve estar vazio)
+
+        });
+    </script>
+
+</body>
+</html>
